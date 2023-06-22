@@ -1,0 +1,1 @@
+INC += ./inc/philo.h
