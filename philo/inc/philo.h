@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 09:24:12 by mrony             #+#    #+#             */
-/*   Updated: 2023/06/23 17:57:21 by mrony            ###   ########.fr       */
+/*   Updated: 2023/06/27 16:46:07 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include <stdint.h> 
 
 // MACRO //
 
@@ -38,40 +39,40 @@
 
 // STRUCTS //
 
+typedef struct s_philo	t_philo;
+typedef struct s_info	t_info;
+
 typedef struct s_philo
 {
-	int			philos;
-	int			die;
-	int			eat;
-	int			sleep;
-	int			repeat;
-	pthread_t	**philo_ids;
-	int			*forks;
+	pthread_t	philo_id;
+	int			l_fork;
+	int			r_fork;
+	t_info		*info;
 }	t_philo;
 
-typedef struct s_bin
+typedef struct s_info
 {
-	void			*rubbish;
-	struct s_bin	*next;
-}	t_bin;
+	int				n_philos;
+	int				die;
+	int				eat;
+	int				sleep;
+	int				repeat;
+	t_philo			*philos;
+	pthread_mutex_t	*forks;
+}	t_info;
 
 // FUNCTIONS //
 
 /* parsing.c */
-t_philo	*ft_parsing(int argc, char **args);
+t_info	ft_parsing(int argc, char **args);
 
 /* utils.c */
 void	ft_putstr_fd(char *str, int fd);
 int		ft_is_digit(char *str);
 int		ft_strlen(char *str);
 long	ft_atol(const char *str);
+void	*ft_calloc(size_t nmemb, size_t size);
 
-/* rubbish.c */
-t_bin **ft_rubbish();
-t_bin	*ft_binnew(void *content);
-void	ft_binadd_front(t_bin **bin, t_bin *new);
-void	ft_bindelone(t_bin *bin, void (*del)(void*));
-void	ft_binclear(t_bin **bin, void (*del)(void*));
-void	*ft_malloc(int size);
+
 
 #endif

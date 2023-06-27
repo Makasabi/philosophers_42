@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 16:16:08 by mrony             #+#    #+#             */
-/*   Updated: 2023/06/22 16:54:11 by mrony            ###   ########.fr       */
+/*   Updated: 2023/06/27 11:09:35 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,23 @@ long	ft_atol(const char *str)
 		str++;
 	}
 	return (res * neg);
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	unsigned char	*array;
+	unsigned int	i;
+
+	if (size != 0 && nmemb > SIZE_MAX / size)
+		return (NULL);
+	array = (unsigned char *)malloc(nmemb * size);
+	if (!array)
+		return (NULL);
+	i = 0;
+	while (i < nmemb * size)
+	{
+		array[i] = '\0';
+		i++;
+	}	
+	return ((void *)array);
 }

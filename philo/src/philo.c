@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 09:29:01 by mrony             #+#    #+#             */
-/*   Updated: 2023/06/23 17:53:51 by mrony            ###   ########.fr       */
+/*   Updated: 2023/06/27 15:42:21 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,63 @@ void	ft_init_error(char *str)
 	exit(EXIT_FAILURE);
 }
 
-void	ft_test(t_philo *philos)
+void	ft_malloc_err(t_info *info, int stage)
 {
+	while (stage > 0)
+	{
+		if(stage == 1)
+			free(info->philos);
+		stage--;
+	}
+	ft_putstr_fd(MALERR, 2);
+	exit(EXIT_FAILURE);
+}
+
+void	ft_finish_prog(t_info *info)
+{
+	free(info->philos);
+	free(info->forks);
+	exit(EXIT_SUCCESS);
+}
+
+void	ft_test(t_info *info)
+{
+	/*
 	struct	timeval tv;
-/* 	
-	1. Setup a table of thread ID = the size is based on the nu of philos (malloc)
-	2. Setup a table of thread ID = The size is based on the nu of philos (malloc)
-	3. for both tables : ad them to the linked list of mallocs (bin)
-	4. add links to each tab to the Philos struc;
-*/
-	(void)philos;
 	while(1)
 	{
 		gettimeofday(&tv, NULL);
 		printf("%ld\n", tv.tv_usec/10);
 	}
-
+	*/
+	t_philo			*philos;
+	pthread_mutex_t	*forks;
+	
+	philos = ft_calloc(info->n_philos, sizeof(t_philo));
+	if (!philos)
+		ft_malloc_err(info, 0);
+	info->philos = philos;
+	forks = ft_calloc(info->n_philos, sizeof(pthread_mutex_t));
+	if(!forks)
+		ft_malloc_err(info, 1);
+	info->forks = forks;
+	
+	ft_finish_prog(info);
 }
 
 int	main(int ac, char **av)
 {
-	t_philo	*philos;
+	t_info	info;
 	
 	if (ac < 5 || ac > 6)
 		return(ft_putstr_fd(INVARG, 2), ft_putstr_fd(USAGE, 2), 1);
-	philos = ft_parsing(ac, av);
-	ft_test(philos);
-	(void)philos;
+	info = ft_parsing(ac, av);
+	/* 
+		1. init all necessary data in info struct.
+		2. init all necessary data in each philo strct.
+		3. 
+		
+		
+	*/
+	ft_test(&info);
 }

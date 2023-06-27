@@ -45,7 +45,7 @@ all: $(NAME)
 
 $(NAME): $(OBJPATH) $(OBJ) $(INCLUDES)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
-	@echo "🍝$(B_GREEN) Spaghetti a la bolognese are ready for the feast $(C_END)🍝"
+	@echo "🍝$(B_GREEN) Spaghetti a la bolognese ready for the feast $(C_END)🍝"
 
 -include $(DEP)
 
