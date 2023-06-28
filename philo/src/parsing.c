@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 16:14:42 by mrony             #+#    #+#             */
-/*   Updated: 2023/06/27 11:11:19 by mrony            ###   ########.fr       */
+/*   Updated: 2023/06/28 14:28:22 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,18 @@ int	ft_checks(char *arg)
 	
 }
 
-t_info	ft_parsing(int argc, char **args)
+t_info	*ft_parsing(int argc, char **args)
 {
-	t_info	info;
+	t_info	*info;
 
-	info.n_philos = ft_checks(args[1]);
-	info.die = ft_checks(args[2]);
-	info.eat = ft_checks(args[3]);
-	info.sleep = ft_checks(args[4]);
+	info = ft_calloc(1, sizeof(t_info));
+	if (!info)
+		ft_malloc_err(info, 0);
+	info->n_philos = ft_checks(args[1]);
+	info->die = ft_checks(args[2]);
+	info->eat = ft_checks(args[3]);
+	info->sleep = ft_checks(args[4]);
 	if (argc == 6)
-		info.repeat = ft_checks(args[5]);
+		info->repeat = ft_checks(args[5]);
 	return (info);
 }
