@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:13:06 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/03 14:17:21 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/04 17:51:17 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,10 @@ void	ft_sleep(t_info *info, long long sleep)
 	long long int start;
 
 	start = ft_timestamp(info);
-	while(info->dead == FALSE)
+	while(info->dead == ALIVE)
 	{
 		if (ft_timestamp(info) - start >= sleep)
 			break;
 		usleep(10);
 	}
 }
-
-void	ft_print(t_info *info, int p_id, char *str)
-{
-	pthread_mutex_lock(&info->print);
-	if (info->dead == FALSE)
-	{
-		printf("%lld %d %s\n", ft_timestamp(info), p_id, str);
-	}
-	pthread_mutex_unlock(&info->print);
-}
-
-/*
-◦ timestamp_in_ms X has taken a fork
-◦ timestamp_in_ms X is eating
-◦ timestamp_in_ms X is sleeping
-◦ timestamp_in_ms X is thinking
-◦ timestamp_in_ms X died
-*/

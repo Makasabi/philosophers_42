@@ -1,0 +1,203 @@
+==61158== Helgrind, a thread error detector
+==61158== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
+==61158== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==61158== Command: ./philo 5 800 200 200
+==61158== Parent PID: 50617
+==61158== 
+==61158== ---Thread-Announcement------------------------------------------
+==61158== 
+==61158== Thread #1 is the program's root thread
+==61158== 
+==61158== ---Thread-Announcement------------------------------------------
+==61158== 
+==61158== Thread #6 was created
+==61158==    at 0x49A0BA3: clone (clone.S:76)
+==61158==    by 0x49A1A9E: __clone_internal (clone-internal.c:83)
+==61158==    by 0x490F758: create_thread (pthread_create.c:295)
+==61158==    by 0x491027F: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==61158==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401669: ft_launch_philos (threads.c:77)
+==61158==    by 0x4021BF: main (philo.c:31)
+==61158== 
+==61158== ----------------------------------------------------------------
+==61158== 
+==61158==  Lock at 0x4AA6098 was first observed
+==61158==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401B2B: ft_init (init.c:65)
+==61158==    by 0x4021B6: main (philo.c:30)
+==61158==  Address 0x4aa6098 is 88 bytes inside a block of size 176 alloc'd
+==61158==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401E1C: ft_calloc (utils.c:83)
+==61158==    by 0x40130D: ft_parsing (parsing.c:45)
+==61158==    by 0x4021A9: main (philo.c:29)
+==61158==  Block was alloc'd by thread #1
+==61158== 
+==61158== Possible data race during write of size 1 at 0x4AA60E8 by thread #1
+==61158== Locks held: 1, at address 0x4AA6098
+==61158==    at 0x40158B: ft_check_pulse (threads.c:63)
+==61158==    by 0x4016B8: ft_launch_philos (threads.c:81)
+==61158==    by 0x4021BF: main (philo.c:31)
+==61158== 
+==61158== This conflicts with a previous read of size 1 by thread #6
+==61158== Locks held: none
+==61158==    at 0x401891: ft_sleep (time.c:40)
+==61158==    by 0x401445: ft_exec (threads.c:32)
+==61158==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x490FB42: start_thread (pthread_create.c:442)
+==61158==    by 0x49A0BB3: clone (clone.S:100)
+==61158==  Address 0x4aa60e8 is 168 bytes inside a block of size 176 alloc'd
+==61158==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401E1C: ft_calloc (utils.c:83)
+==61158==    by 0x40130D: ft_parsing (parsing.c:45)
+==61158==    by 0x4021A9: main (philo.c:29)
+==61158==  Block was alloc'd by thread #1
+==61158== 
+==61158== ---Thread-Announcement------------------------------------------
+==61158== 
+==61158== Thread #3 was created
+==61158==    at 0x49A0BA3: clone (clone.S:76)
+==61158==    by 0x49A1A9E: __clone_internal (clone-internal.c:83)
+==61158==    by 0x490F758: create_thread (pthread_create.c:295)
+==61158==    by 0x491027F: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==61158==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401669: ft_launch_philos (threads.c:77)
+==61158==    by 0x4021BF: main (philo.c:31)
+==61158== 
+==61158== ----------------------------------------------------------------
+==61158== 
+==61158==  Lock at 0x4AA6288 was first observed
+==61158==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x4015F3: ft_launch_philos (threads.c:73)
+==61158==    by 0x4021BF: main (philo.c:31)
+==61158==  Address 0x4aa6288 is 40 bytes inside a block of size 200 alloc'd
+==61158==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401E1C: ft_calloc (utils.c:83)
+==61158==    by 0x401ACC: ft_init (init.c:59)
+==61158==    by 0x4021B6: main (philo.c:30)
+==61158==  Block was alloc'd by thread #1
+==61158== 
+==61158==  Lock at 0x4AA62B0 was first observed
+==61158==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x4015F3: ft_launch_philos (threads.c:73)
+==61158==    by 0x4021BF: main (philo.c:31)
+==61158==  Address 0x4aa62b0 is 80 bytes inside a block of size 200 alloc'd
+==61158==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401E1C: ft_calloc (utils.c:83)
+==61158==    by 0x401ACC: ft_init (init.c:59)
+==61158==    by 0x4021B6: main (philo.c:30)
+==61158==  Block was alloc'd by thread #1
+==61158== 
+==61158==  Lock at 0x4AA6098 was first observed
+==61158==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401B2B: ft_init (init.c:65)
+==61158==    by 0x4021B6: main (philo.c:30)
+==61158==  Address 0x4aa6098 is 88 bytes inside a block of size 176 alloc'd
+==61158==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401E1C: ft_calloc (utils.c:83)
+==61158==    by 0x40130D: ft_parsing (parsing.c:45)
+==61158==    by 0x4021A9: main (philo.c:29)
+==61158==  Block was alloc'd by thread #1
+==61158== 
+==61158== Possible data race during read of size 1 at 0x4AA60E8 by thread #3
+==61158== Locks held: 2, at addresses 0x4AA6288 0x4AA62B0
+==61158==    at 0x401891: ft_sleep (time.c:40)
+==61158==    by 0x401F86: ft_philo_eats (philo_does.c:29)
+==61158==    by 0x40146F: ft_exec (threads.c:35)
+==61158==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x490FB42: start_thread (pthread_create.c:442)
+==61158==    by 0x49A0BB3: clone (clone.S:100)
+==61158== 
+==61158== This conflicts with a previous write of size 1 by thread #1
+==61158== Locks held: 1, at address 0x4AA6098
+==61158==    at 0x40158B: ft_check_pulse (threads.c:63)
+==61158==    by 0x4016B8: ft_launch_philos (threads.c:81)
+==61158==    by 0x4021BF: main (philo.c:31)
+==61158==  Address 0x4aa60e8 is 168 bytes inside a block of size 176 alloc'd
+==61158==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401E1C: ft_calloc (utils.c:83)
+==61158==    by 0x40130D: ft_parsing (parsing.c:45)
+==61158==    by 0x4021A9: main (philo.c:29)
+==61158==  Block was alloc'd by thread #1
+==61158== 
+==61158== ----------------------------------------------------------------
+==61158== 
+==61158==  Lock at 0x4AA6098 was first observed
+==61158==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401B2B: ft_init (init.c:65)
+==61158==    by 0x4021B6: main (philo.c:30)
+==61158==  Address 0x4aa6098 is 88 bytes inside a block of size 176 alloc'd
+==61158==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401E1C: ft_calloc (utils.c:83)
+==61158==    by 0x40130D: ft_parsing (parsing.c:45)
+==61158==    by 0x4021A9: main (philo.c:29)
+==61158==  Block was alloc'd by thread #1
+==61158== 
+==61158== Possible data race during read of size 1 at 0x4AA60E8 by thread #3
+==61158== Locks held: none
+==61158==    at 0x402064: ft_philo_sleeps (philo_does.c:37)
+==61158==    by 0x401489: ft_exec (threads.c:37)
+==61158==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x490FB42: start_thread (pthread_create.c:442)
+==61158==    by 0x49A0BB3: clone (clone.S:100)
+==61158== 
+==61158== This conflicts with a previous write of size 1 by thread #1
+==61158== Locks held: 1, at address 0x4AA6098
+==61158==    at 0x40158B: ft_check_pulse (threads.c:63)
+==61158==    by 0x4016B8: ft_launch_philos (threads.c:81)
+==61158==    by 0x4021BF: main (philo.c:31)
+==61158==  Address 0x4aa60e8 is 168 bytes inside a block of size 176 alloc'd
+==61158==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401E1C: ft_calloc (utils.c:83)
+==61158==    by 0x40130D: ft_parsing (parsing.c:45)
+==61158==    by 0x4021A9: main (philo.c:29)
+==61158==  Block was alloc'd by thread #1
+==61158== 
+==61158== ---Thread-Announcement------------------------------------------
+==61158== 
+==61158== Thread #2 was created
+==61158==    at 0x49A0BA3: clone (clone.S:76)
+==61158==    by 0x49A1A9E: __clone_internal (clone-internal.c:83)
+==61158==    by 0x490F758: create_thread (pthread_create.c:295)
+==61158==    by 0x491027F: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==61158==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401669: ft_launch_philos (threads.c:77)
+==61158==    by 0x4021BF: main (philo.c:31)
+==61158== 
+==61158== ----------------------------------------------------------------
+==61158== 
+==61158==  Lock at 0x4AA6098 was first observed
+==61158==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401B2B: ft_init (init.c:65)
+==61158==    by 0x4021B6: main (philo.c:30)
+==61158==  Address 0x4aa6098 is 88 bytes inside a block of size 176 alloc'd
+==61158==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401E1C: ft_calloc (utils.c:83)
+==61158==    by 0x40130D: ft_parsing (parsing.c:45)
+==61158==    by 0x4021A9: main (philo.c:29)
+==61158==  Block was alloc'd by thread #1
+==61158== 
+==61158== Possible data race during read of size 1 at 0x4AA60E8 by thread #2
+==61158== Locks held: none
+==61158==    at 0x401891: ft_sleep (time.c:40)
+==61158==    by 0x401445: ft_exec (threads.c:32)
+==61158==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x490FB42: start_thread (pthread_create.c:442)
+==61158==    by 0x49A0BB3: clone (clone.S:100)
+==61158== 
+==61158== This conflicts with a previous write of size 1 by thread #1
+==61158== Locks held: 1, at address 0x4AA6098
+==61158==    at 0x40158B: ft_check_pulse (threads.c:63)
+==61158==    by 0x4016B8: ft_launch_philos (threads.c:81)
+==61158==    by 0x4021BF: main (philo.c:31)
+==61158==  Address 0x4aa60e8 is 168 bytes inside a block of size 176 alloc'd
+==61158==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==61158==    by 0x401E1C: ft_calloc (utils.c:83)
+==61158==    by 0x40130D: ft_parsing (parsing.c:45)
+==61158==    by 0x4021A9: main (philo.c:29)
+==61158==  Block was alloc'd by thread #1
+==61158== 
+==61158== 
+==61158== Use --history-level=approx or =none to gain increased speed, at
+==61158== the cost of reduced accuracy of conflicting-access information
+==61158== For lists of detected and suppressed errors, rerun with: -s
+==61158== ERROR SUMMARY: 8 errors from 4 contexts (suppressed: 336549 from 45)

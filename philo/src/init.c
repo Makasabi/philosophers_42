@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:01:29 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/04 14:36:45 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/04 17:07:37 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void ft_init(t_info *info)
 	philos = ft_calloc(info->n_philos, sizeof(t_philo));
 	if (!philos)
 		ft_malloc_err(info, 1);
-	info->dead = FALSE;
+	info->dead = ALIVE;
 	while (i < info->n_philos)
 	{
 		philos[i].id = i + 1;

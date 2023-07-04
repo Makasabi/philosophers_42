@@ -33,15 +33,15 @@ Ex : 3 205 100 100
 	-> malloc a tab of number of forks.
 	-> In a loop, launch each philo as a thread (each philo declares a variable (flag->alive/dead));
 	-> function to be executed in each thread : Mutex fork left and fork right; time to eat; release mutx; time to sleep;
-		->conition to mutex : Both fork (pos-1 & pos) are available - otherwise wait.
+		->conition to mutex : Both fork (pos-1 & pos) are available - otherwise wait. -> Get forks mutex
 	-> main thread must show when a philosopher dies.
 	-> each philosopher is in an infinite loop where they eat & sleep for a given amount of time and end up dying if the time to die counter is 0;
 	-> print relevant information about each philo
 
-4. QUESTION : How to count time in each thread ? or globally ?
+4. QUESTION : How to count time in each thread ? or globally ? DONE = FT SLEEP
 
-5. Exit program if 1 philo is dead OR if the number of rquired occurence happened.
-
+5. Exit program if 1 philo is dead OR if the number of required occurence happened.
+	unlock and destroy all mutex;
 
 
 https://www.codequoi.com/threads-mutex-et-programmation-concurrente-en-c/
@@ -49,13 +49,14 @@ https://www.codequoi.com/threads-mutex-et-programmation-concurrente-en-c/
 int pthread_create(pthread_t *restrict thread, const pthread_attr_t *restrict attr, void *(*start_routine)(void *), void *restrict arg);
 
 test for data race :
--> compilaton flag : gcc -fsanitize=tread -g <prog.c>
+-> compilaton flag : gcc -fsanitize=thread -g <prog.c>
 (warning appears upon execution)
 --> provides location of data race.
 
 Test to detect thread errors
 -> execution through : valgrind --tool=helgrind ./programme.
 
+-> valgrind --tool=helgrind --ignore-thread-creation=yes --log-file=log.txt ./philo args
 
 -> valgrind --tool=drd ./programme.
 
@@ -119,3 +120,12 @@ should error and not run (no crashing)
 should error and not run (no crashing)
 4 600 200 200 -5
 should error and not run (no crashing)
+
+
+04/07/2023 
+TO DO
+	-> 1 Philo scenario
+	-> End program when number of meals reached
+	-> Unlock all Mutex when one philo dies
+	-> Clear all Datarace
+	-> Implement 1 variable status in each philo and main thread will check for status of each 

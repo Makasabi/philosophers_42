@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 09:24:12 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/04 14:40:36 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/04 17:48:13 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@
 # include <stdbool.h>
 
 ////////////////////// MACRO //////////////////////
-
-# define TRUE 1
-# define FALSE 0
 
 # define INVARG "\033[1;35m🦖 Invalid Argument(s) 🦖\n\033[1;0m"
 # define USAGE "\033[0;34mUsage: ./philo <number_of_philosophers> \
@@ -57,6 +54,10 @@
 # define SLPS "is sleeping"
 # define THKS "is thinking"
 # define DIED "died"
+
+# define ALIVE 0
+# define DEAD 1
+
 ////////////////////// STRUCTS //////////////////////
 
 typedef struct s_philo	t_philo;
@@ -70,6 +71,7 @@ typedef struct s_philo
 	int			r_fork;	//init
 	int			meals;	//init 0
 	long long int	last_meal;	//init
+	bool		status;
 	t_info		*info;	//init
 }	t_philo;
 
@@ -110,8 +112,6 @@ void	ft_malloc_err(t_info *info, int stage);
 long long	ft_get_starttime();
 long long	ft_timestamp(t_info *info);
 void	ft_sleep(t_info *info, long long sleep);
-void	ft_print(t_info *info, int p_id, char *str);
-
 
 /* threads.c */
 void	ft_launch_philos(t_info *info);
@@ -119,10 +119,10 @@ void	*ft_exec(void *data);
 void	ft_pthread_err(t_info *info, char *err);
 void	ft_end_philos(t_info *info);
 
-
 /* philo_does.c */
 void	ft_philo_eats(t_info *info, t_philo *philo);
 void	ft_philo_sleeps(t_info *info, t_philo *philo);
 void	ft_philo_thinks(t_info *info, t_philo *philo);
+void	ft_print(t_info *info, int p_id, char *str);
 
 #endif
