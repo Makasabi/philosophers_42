@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:01:29 by mrony             #+#    #+#             */
-/*   Updated: 2023/06/28 16:14:47 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/04 14:36:45 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,17 @@ void ft_init(t_info *info)
 	int				i;
 
 	i = 0;
-	info->start = ft_gettime();
+	info->start = ft_timestamp(info);
 	philos = ft_calloc(info->n_philos, sizeof(t_philo));
 	if (!philos)
 		ft_malloc_err(info, 1);
+	info->dead = FALSE;
 	while (i < info->n_philos)
 	{
 		philos[i].id = i + 1;
 		philos[i].info = info;
 		philos[i].l_fork = i;
-		philos[i].r_fork = i + 1 % info->n_philos;
+		philos[i].r_fork = (i + 1) % info->n_philos;
 		i++;
 	}
 	info->philos = philos;
@@ -59,4 +60,7 @@ void ft_init(t_info *info)
 	if (!forks)
 		ft_malloc_err(info, 2);
 	info->forks = forks;
+	pthread_mutex_init(&info->print, NULL);
+	pthread_mutex_init(&info->get_forks, NULL);
+	pthread_mutex_init(&info->timecheck, NULL);
 }
