@@ -6,11 +6,53 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:01:29 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/04 17:07:37 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/05 16:34:32 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+void	ft_parsing_error(char *str)
+{
+	ft_putstr_fd(INVARG, 2);
+	ft_putstr_fd(str, 2);
+	exit(EXIT_FAILURE);
+}
+
+
+int	ft_checks(char *arg)
+{
+	long	tmp;
+
+	tmp = 0;
+	if (arg[0] == '\0')
+		ft_parsing_error(EMPTY);
+	if (ft_is_digit(arg) == 1)
+		ft_parsing_error(DIGIT);
+	if (ft_strlen(arg) > 11)
+		ft_parsing_error(INTERR);
+	tmp = ft_atol(arg);
+	if (tmp < 0 || tmp > 2147483647)
+		ft_parsing_error(INTERR);
+	return ((int)tmp);
+	
+}
+
+t_info	*ft_parsing(int argc, char **args)
+{
+	t_info	*info;
+
+	info = ft_calloc(1, sizeof(t_info));
+	if (!info)
+		ft_malloc_err(info, 0);
+	info->n_philos = ft_checks(args[1]);
+	info->die = ft_checks(args[2]);
+	info->eat = ft_checks(args[3]);
+	info->sleep = ft_checks(args[4]);
+	if (argc == 6)
+		info->repeat = ft_checks(args[5]);
+	return (info);
+}
 
 void ft_malloc_err(t_info *info, int stage)
 {
@@ -60,7 +102,5 @@ void ft_init(t_info *info)
 	if (!forks)
 		ft_malloc_err(info, 2);
 	info->forks = forks;
-	pthread_mutex_init(&info->print, NULL);
-	pthread_mutex_init(&info->get_forks, NULL);
-	pthread_mutex_init(&info->timecheck, NULL);
+	pthread_mutex_init(&info->check, NULL);
 }

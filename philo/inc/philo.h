@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 09:24:12 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/04 17:48:13 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/05 16:34:32 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_philo
 	int			r_fork;	//init
 	int			meals;	//init 0
 	long long int	last_meal;	//init
-	bool		status;
+	bool		status; //not used yet
 	t_info		*info;	//init
 }	t_philo;
 
@@ -85,16 +85,11 @@ typedef struct s_info
 	long long		start;	//init
 	t_philo			*philos;//init
 	pthread_mutex_t	*forks;	//init
-	pthread_mutex_t	get_forks;
-	pthread_mutex_t	timecheck;
-	pthread_mutex_t print; // to protect my prints
+	pthread_mutex_t	check;
 	bool			dead; // + mutex on dead
 }	t_info;
 
 ////////////////////// FUNCTIONS //////////////////////
-
-/* parsing.c */
-t_info	*ft_parsing(int argc, char **args);
 
 /* utils.c */
 void	ft_putstr_fd(char *str, int fd);
@@ -104,14 +99,14 @@ long	ft_atol(const char *str);
 void	*ft_calloc(size_t nmemb, size_t size);
 
 /* init.c */
+t_info	*ft_parsing(int argc, char **args);
 void	ft_init(t_info *info);
-void	ft_init_error(char *str);
 void	ft_malloc_err(t_info *info, int stage);
 
 /* time.c */
 long long	ft_get_starttime();
 long long	ft_timestamp(t_info *info);
-void	ft_sleep(t_info *info, long long sleep);
+void		ft_sleep(t_info *info, long long sleep);
 
 /* threads.c */
 void	ft_launch_philos(t_info *info);
@@ -120,6 +115,7 @@ void	ft_pthread_err(t_info *info, char *err);
 void	ft_end_philos(t_info *info);
 
 /* philo_does.c */
+void	ft_philo_is_alone(t_info *info, t_philo *philo);
 void	ft_philo_eats(t_info *info, t_philo *philo);
 void	ft_philo_sleeps(t_info *info, t_philo *philo);
 void	ft_philo_thinks(t_info *info, t_philo *philo);

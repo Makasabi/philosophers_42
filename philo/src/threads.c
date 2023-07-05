@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:14:08 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/04 18:35:58 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/05 17:52:57 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,17 @@ void	*ft_exec(void *data)
 
 	philo = (t_philo *)data;
 	info = philo->info;
-	if (philo->id % 2)
+	if (!(philo->id % 2))
 		ft_sleep(info, 200);
-	while (info->dead == ALIVE)
+	while(1)
 	{
+		pthread_mutex_lock(&info->check);
+		if (info->dead == DEAD)
+		{
+			pthread_mutex_unlock(&info->check);
+			break;
+		}
+		pthread_mutex_unlock(&info->check);
 		ft_philo_eats(info, philo);
 		philo->meals++;
 		ft_philo_sleeps(info, philo);
@@ -47,21 +54,21 @@ void	ft_check_pulse(t_info *info, t_philo *philos)
 	i = 0;
 	while (info->dead == ALIVE)
 	{
-		pthread_mutex_lock(&info->timecheck);
+		pthread_mutex_lock(&info->check);
 		if((ft_timestamp(info) - philos[i].last_meal) >= info->die)
 		{
-			pthread_mutex_unlock(&info->timecheck);
+			pthread_mutex_unlock(&info->check);
 			break;
 		}
-		pthread_mutex_unlock(&info->timecheck);
+		pthread_mutex_unlock(&info->check);
 		i++;
-		if (i == info->n_philos - 1)
+		if (i == info->n_philos - 1 || info->n_philos == 1)
 			i = 0;
 	}
 	ft_print(info, i + 1, DIED);
-	pthread_mutex_lock(&info->timecheck);
+	pthread_mutex_lock(&info->check);
 	info->dead = DEAD;
-	pthread_mutex_unlock(&info->timecheck);
+	pthread_mutex_unlock(&info->check);
 }
 
 void	ft_launch_philos(t_info *info)
@@ -77,23 +84,34 @@ void	ft_launch_philos(t_info *info)
 		if(pthread_create(&info->philos[i].t_id, \
 		NULL, ft_exec, &info->philos[i]) != 0)
 			ft_pthread_err(info, INITRD);
-	while (info->dead == ALIVE)
+	while (1)
+	{
+		pthread_mutex_lock(&info->check);
+		if (info->dead == DEAD)
+		{
+			pthread_mutex_unlock(&info->check);
+			break;
+		}
+		pthread_mutex_unlock(&info->check);
 		ft_check_pulse(info, info->philos);
+	}
+	
 }
 
 void	ft_end_philos(t_info *info)
 {
 	int	i;
 
-	i = -1;
-	while (++i < info->n_philos)
+	i = 0;
+	while (i < info->n_philos)
+	{
 		if(pthread_join(info->philos[i].t_id,NULL) != 0)
 			ft_pthread_err(info, ERRJOI);
+		i++;
+	}
 	i = -1;
 	while (++i < info->n_philos)
 		if (pthread_mutex_destroy(&info->forks[i]) != 0)
 			ft_pthread_err(info, DESMTX);
-	pthread_mutex_destroy(&info->get_forks);
-	pthread_mutex_destroy(&info->print);
-	pthread_mutex_destroy(&info->timecheck);
+	pthread_mutex_destroy(&info->check);
 }

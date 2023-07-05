@@ -106,6 +106,7 @@ a philo should die
 a philo should die
 4 200 205 200
 a philo should die
+
 5 800 200 200 7
 no one should die, simulation should stop after 7 eats
 4 410 200 200 10
@@ -126,6 +127,6 @@ should error and not run (no crashing)
 TO DO
 	-> 1 Philo scenario
 	-> End program when number of meals reached
-	-> Unlock all Mutex when one philo dies
-	-> Clear all Datarace
-	-> Implement 1 variable status in each philo and main thread will check for status of each 
+//	-> Unlock all Mutex when one philo dies
+//	-> Clear all Datarace
+//	-> Implement 1 variable status in each philo and main thread will check for status of each 

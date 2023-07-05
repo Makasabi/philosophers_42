@@ -18,7 +18,8 @@ DEP			= $(SRC:.c=.d)
 cc			= gcc
 
 CFLAGS		= -Wall -Werror -Wextra  -g -g3 -pthread 
-#-fsanitize=thread
+
+# -fsanitize=thread
 
 NAME		= philo
 
