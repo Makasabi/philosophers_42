@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 16:16:08 by mrony             #+#    #+#             */
-/*   Updated: 2023/06/27 11:09:35 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/07 16:46:14 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_strlen(char *str)
 	i = 0;
 	while (str[i])
 		i++;
-	return(i);
+	return (i);
 }
 
 long	ft_atol(const char *str)

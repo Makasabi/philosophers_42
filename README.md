@@ -125,8 +125,15 @@ should error and not run (no crashing)
 
 04/07/2023 
 TO DO
-	-> 1 Philo scenario
-	-> End program when number of meals reached
+//	-> 1 Philo scenario
+//	-> End program when number of meals reached
 //	-> Unlock all Mutex when one philo dies
 //	-> Clear all Datarace
 //	-> Implement 1 variable status in each philo and main thread will check for status of each 
+
+
+MAKEFILE
+gmk:
+		@if [ -d make ];then echo "$(C_GREEN)Source file list updated$(C_END)" ;else mkdir make;fi
+		@find -name '*.c' | sed 's/^/SRC += /' > make/src.mk
+		@find -name '*.h' | sed 's/^/INC += /' > make/inc.mk

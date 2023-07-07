@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 09:24:12 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/07 16:34:49 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/07 16:50:07 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 <time_to_die> <time_to_eat> <time_to_sleep> \
 [<number_of_time_each_philosopher_must_eat>]\n\033[1;0m"
 # define EMPTY "\033[0;33mAt least one argument is empty.\033[0m\n"
-# define DIGIT "\033[0;33mArgument is not a positive digit.\033[0m\n"""
+# define DIGIT "\033[0;33mArgument is not a positive digit.\033[0m\n"
 # define INTERR "\033[0;33mArgument does't fit into an int.\033[0m\n"
 
 # define MALERR "\033[1;35m🦖 Malloc failled 🦖\n\033[1;0m"
@@ -95,37 +95,37 @@ typedef struct s_info
 ////////////////////// FUNCTIONS //////////////////////
 
 /* utils.c */
-void	ft_putstr_fd(char *str, int fd);
-int		ft_is_digit(char *str);
-int		ft_strlen(char *str);
-long	ft_atol(const char *str);
-void	*ft_calloc(size_t nmemb, size_t size);
+void		ft_putstr_fd(char *str, int fd);
+int			ft_is_digit(char *str);
+int			ft_strlen(char *str);
+long		ft_atol(const char *str);
+void		*ft_calloc(size_t nmemb, size_t size);
 
 /* init.c */
-t_info	*ft_parsing(int argc, char **args);
-void	ft_init(t_info *info);
-void	ft_malloc_err(t_info *info, int stage);
+t_info		*ft_parsing(int argc, char **args);
+void		ft_init(t_info *info);
+void		ft_malloc_err(t_info *info, int stage);
 
 /* time.c */
-long long	ft_get_starttime();
+long long	ft_get_starttime(void);
 long long	ft_timestamp(t_info *info);
 void		ft_sleep(t_info *info, long long sleep);
 
 /* threads.c */
-void	ft_launch_philos(t_info *info);
-void	*ft_exec(void *data);
-void	ft_pthread_err(t_info *info, char *err);
-void	ft_end_philos(t_info *info);
-void	ft_check_pulse(t_info *info, t_philo *philos);
+void		ft_launch_philos(t_info *info);
+void		*ft_exec(void *data);
+void		ft_pthread_err(t_info *info, char *err);
+void		ft_end_philos(t_info *info);
+void		ft_check_pulse(t_info *info, t_philo *philos);
 
 /* philo_does.c */
-void	ft_philo_eats(t_info *info, t_philo *philo);
-void	ft_philo_sleeps(t_info *info, t_philo *philo);
-void	ft_philo_thinks(t_info *info, t_philo *philo);
-void	ft_print(t_info *info, int p_id, char *str);
+void		ft_philo_eats(t_info *info, t_philo *philo);
+void		ft_philo_sleeps(t_info *info, t_philo *philo);
+void		ft_philo_thinks(t_info *info, t_philo *philo);
+void		ft_print(t_info *info, int p_id, char *str);
 
 /* philo_is_alone.c */
-void	*ft_philo_is_alone(void *data);
-void	ft_launch_one_philo(t_info *info);
+void		*ft_philo_is_alone(void *data);
+void		ft_launch_one_philo(t_info *info);
 
 #endif

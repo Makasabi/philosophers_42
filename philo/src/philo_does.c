@@ -6,16 +6,11 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:38:10 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/07 16:15:41 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/07 18:36:16 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
-
-// void	ft_philo_is_alone(t_info *info, t_philo *philo)
-// {
-	
-// }
 
 void	ft_philo_eats(t_info *info, t_philo *philo)
 {

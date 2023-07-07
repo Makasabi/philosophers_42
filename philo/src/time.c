@@ -6,16 +6,16 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:13:06 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/05 16:34:32 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/07 16:45:58 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-long long int	ft_get_starttime()
+long long int	ft_get_starttime(void)
 {
-	struct	timeval	start;
-	long long int time;
+	struct timeval	start;
+	long long int	time;
 
 	gettimeofday(&start, NULL);
 	time = (start.tv_sec * 1000) + (start.tv_usec / 1000);
@@ -24,30 +24,30 @@ long long int	ft_get_starttime()
 
 long long int	ft_timestamp(t_info *info)
 {
-	struct timeval now;
+	struct timeval	now;
+	long long int	timestamp;
 
 	gettimeofday(&now, NULL);
-	long long int timestamp;
 	timestamp = (now.tv_sec * 1000) + (now.tv_usec / 1000) - info->start;
 	return (timestamp);
 }
 
 void	ft_sleep(t_info *info, long long sleep)
 {
-	long long int start;
+	long long int	start;
 
 	start = ft_timestamp(info);
-	while(1)
+	while (1)
 	{
 		pthread_mutex_lock(&info->check);
 		if (info->dead == DEAD)
 		{
 			pthread_mutex_unlock(&info->check);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&info->check);
 		if (ft_timestamp(info) - start >= sleep)
-			break;
+			break ;
 		usleep(10);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:01:29 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/07 14:50:21 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/07 16:42:07 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_parsing_error(char *str)
 	ft_putstr_fd(str, 2);
 	exit(EXIT_FAILURE);
 }
-
 
 int	ft_checks(char *arg)
 {
@@ -35,7 +34,6 @@ int	ft_checks(char *arg)
 	if (tmp < 0 || tmp > 2147483647)
 		ft_parsing_error(INTERR);
 	return ((int)tmp);
-	
 }
 
 t_info	*ft_parsing(int argc, char **args)
@@ -54,9 +52,9 @@ t_info	*ft_parsing(int argc, char **args)
 	return (info);
 }
 
-void ft_malloc_err(t_info *info, int stage)
+void	ft_malloc_err(t_info *info, int stage)
 {
-	int i;
+	int	i;
 
 	i = stage;
 	ft_putstr_fd(MALERR, 2);
@@ -77,7 +75,7 @@ void ft_malloc_err(t_info *info, int stage)
 	exit(EXIT_FAILURE);
 }
 
-void ft_init(t_info *info)
+void	ft_init(t_info *info)
 {
 	t_philo			*philos;
 	pthread_mutex_t	*forks;

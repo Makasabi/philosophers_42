@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:14:08 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/07 16:31:06 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/07 18:29:54 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,20 @@ void	ft_pthread_err(t_info *info, char *err)
 
 void	*ft_exec(void *data)
 {
-	t_info *info;
-	t_philo *philo;
+	t_info	*info;
+	t_philo	*philo;
 
 	philo = (t_philo *)data;
 	info = philo->info;
 	if (!(philo->id % 2))
 		ft_sleep(info, 200);
-	while(1)
+	while (1)
 	{
 		pthread_mutex_lock(&info->check);
 		if (info->dead == DEAD)
 		{
 			pthread_mutex_unlock(&info->check);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&info->check);
 		ft_philo_eats(info, philo);
@@ -46,34 +46,39 @@ void	*ft_exec(void *data)
 	return (NULL);
 }
 
-void	ft_check_pulse(t_info *info, t_philo *philos)
+void	ft_check_pulse_2(t_info *info, t_philo *philos, int *i, bool *check)
 {
-	int i;
-	bool check;
-
-	i = 0;
-	check = 0;
 	while (info->dead == ALIVE)
 	{
 		pthread_mutex_lock(&info->check);
-		if((ft_timestamp(info) - philos[i].last_meal) >= info->die)
+		if ((ft_timestamp(info) - philos[*i].last_meal) >= info->die)
 		{
 			pthread_mutex_unlock(&info->check);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&info->check);
 		pthread_mutex_lock(&info->milkshake);
 		if (info->dessert == info->n_philos)
 		{
 			pthread_mutex_unlock(&info->milkshake);
-			check = 1;
+			*check = 1;
 			break ;
 		}
 		pthread_mutex_unlock(&info->milkshake);
-		i++;
-		if (i == info->n_philos - 1 || info->n_philos == 1)
-			i = 0;
+		*i += 1;
+		if (*i == info->n_philos - 1 || info->n_philos == 1)
+			*i = 0;
 	}
+}
+
+void	ft_check_pulse(t_info *info, t_philo *philos)
+{
+	int		i;
+	bool	check;
+
+	i = 0;
+	check = 0;
+	ft_check_pulse_2(info, philos, &i, &check);
 	if (check == 0)
 		ft_print(info, i + 1, DIED);
 	else
@@ -89,11 +94,11 @@ void	ft_launch_philos(t_info *info)
 
 	i = -1;
 	while (++i < info->n_philos)
-		if (pthread_mutex_init(&info->forks[i],NULL) != 0)
+		if (pthread_mutex_init(&info->forks[i], NULL) != 0)
 			ft_pthread_err(info, INIMTX);
 	i = -1;
 	while (++i < info->n_philos)
-		if(pthread_create(&info->philos[i].t_id, \
+		if (pthread_create(&info->philos[i].t_id, \
 		NULL, ft_exec, &info->philos[i]) != 0)
 			ft_pthread_err(info, INITRD);
 	while (1)
@@ -102,28 +107,9 @@ void	ft_launch_philos(t_info *info)
 		if (info->dead == DEAD)
 		{
 			pthread_mutex_unlock(&info->check);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&info->check);
 		ft_check_pulse(info, info->philos);
 	}
-}
-
-void	ft_end_philos(t_info *info)
-{
-	int	i;
-
-	i = 0;
-	while (i < info->n_philos)
-	{
-		if(pthread_join(info->philos[i].t_id,NULL) != 0)
-			ft_pthread_err(info, ERRJOI);
-		i++;
-	}
-	i = -1;
-	while (++i < info->n_philos)
-		if (pthread_mutex_destroy(&info->forks[i]) != 0)
-			ft_pthread_err(info, DESMTX);
-	pthread_mutex_destroy(&info->check);
-	pthread_mutex_destroy(&info->milkshake);
 }
