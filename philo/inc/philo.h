@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 09:24:12 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/05 16:34:32 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/07 16:34:49 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 <time_to_die> <time_to_eat> <time_to_sleep> \
 [<number_of_time_each_philosopher_must_eat>]\n\033[1;0m"
 # define EMPTY "\033[0;33mAt least one argument is empty.\033[0m\n"
-# define DIGIT "\033[0;33mArgument is not a digit.\033[0m\n"""
+# define DIGIT "\033[0;33mArgument is not a positive digit.\033[0m\n"""
 # define INTERR "\033[0;33mArgument does't fit into an int.\033[0m\n"
 
 # define MALERR "\033[1;35m🦖 Malloc failled 🦖\n\033[1;0m"
@@ -53,7 +53,8 @@
 # define EATS "is eating"
 # define SLPS "is sleeping"
 # define THKS "is thinking"
-# define DIED "died"
+# define DIED "\033[0;31mdied\033[0m"
+# define DONE "\033[0;32mPhilosophers all ate at least %d times\033[0m\n"
 
 # define ALIVE 0
 # define DEAD 1
@@ -65,28 +66,30 @@ typedef struct s_info	t_info;
 
 typedef struct s_philo
 {
-	pthread_t	t_id;
-	int			id;		//init
-	int			l_fork;	//init
-	int			r_fork;	//init
-	int			meals;	//init 0
-	long long int	last_meal;	//init
-	bool		status; //not used yet
-	t_info		*info;	//init
+	pthread_t		t_id;
+	int				id;
+	int				l_fork;
+	int				r_fork;
+	int				meals;
+	long long int	last_meal;
+	bool			status;
+	t_info			*info;
 }	t_philo;
 
 typedef struct s_info
 {
-	int				n_philos;	//parsing
-	int				die;	//parsing
-	int				eat;	//parsing
-	int				sleep;	//parsing
-	int				repeat;	//parsing
-	long long		start;	//init
-	t_philo			*philos;//init
-	pthread_mutex_t	*forks;	//init
+	int				n_philos;
+	int				die;
+	int				eat;
+	int				sleep;
+	int				repeat;
+	long long		start;
+	int				dessert;
+	t_philo			*philos;
+	pthread_mutex_t	*forks;
 	pthread_mutex_t	check;
-	bool			dead; // + mutex on dead
+	pthread_mutex_t	milkshake;
+	bool			dead;
 }	t_info;
 
 ////////////////////// FUNCTIONS //////////////////////
@@ -113,12 +116,16 @@ void	ft_launch_philos(t_info *info);
 void	*ft_exec(void *data);
 void	ft_pthread_err(t_info *info, char *err);
 void	ft_end_philos(t_info *info);
+void	ft_check_pulse(t_info *info, t_philo *philos);
 
 /* philo_does.c */
-void	ft_philo_is_alone(t_info *info, t_philo *philo);
 void	ft_philo_eats(t_info *info, t_philo *philo);
 void	ft_philo_sleeps(t_info *info, t_philo *philo);
 void	ft_philo_thinks(t_info *info, t_philo *philo);
 void	ft_print(t_info *info, int p_id, char *str);
+
+/* philo_is_alone.c */
+void	*ft_philo_is_alone(void *data);
+void	ft_launch_one_philo(t_info *info);
 
 #endif

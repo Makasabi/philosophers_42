@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:01:29 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/05 16:34:32 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/07 14:50:21 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,5 @@ void ft_init(t_info *info)
 		ft_malloc_err(info, 2);
 	info->forks = forks;
 	pthread_mutex_init(&info->check, NULL);
+	pthread_mutex_init(&info->milkshake, NULL);
 }

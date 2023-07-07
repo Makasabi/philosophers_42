@@ -111,7 +111,7 @@ a philo should die
 no one should die, simulation should stop after 7 eats
 4 410 200 200 10
 no one should die, simulation should stop after 10 eats
--5 600 200 200
+-5 600 200 20
 should error and not run (no crashing)
 4 -5 200 200
 should error and not run (no crashing)

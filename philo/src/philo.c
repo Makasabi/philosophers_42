@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 09:29:01 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/05 16:24:19 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/07 14:47:01 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int	main(int ac, char **av)
 		return(ft_putstr_fd(INVARG, 2), ft_putstr_fd(USAGE, 2), 1);
 	info = ft_parsing(ac, av);
 	ft_init(info);
-	ft_launch_philos(info);
+	if (info->n_philos == 1)
+		ft_launch_one_philo(info);
+	else
+		ft_launch_philos(info);
 	ft_end_philos(info);
 	ft_finish_prog(info);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:14:08 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/05 17:52:57 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/07 16:31:06 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	*ft_exec(void *data)
 		}
 		pthread_mutex_unlock(&info->check);
 		ft_philo_eats(info, philo);
-		philo->meals++;
 		ft_philo_sleeps(info, philo);
 		ft_philo_thinks(info, philo);
 	}
@@ -50,8 +49,10 @@ void	*ft_exec(void *data)
 void	ft_check_pulse(t_info *info, t_philo *philos)
 {
 	int i;
+	bool check;
 
 	i = 0;
+	check = 0;
 	while (info->dead == ALIVE)
 	{
 		pthread_mutex_lock(&info->check);
@@ -61,11 +62,22 @@ void	ft_check_pulse(t_info *info, t_philo *philos)
 			break;
 		}
 		pthread_mutex_unlock(&info->check);
+		pthread_mutex_lock(&info->milkshake);
+		if (info->dessert == info->n_philos)
+		{
+			pthread_mutex_unlock(&info->milkshake);
+			check = 1;
+			break ;
+		}
+		pthread_mutex_unlock(&info->milkshake);
 		i++;
 		if (i == info->n_philos - 1 || info->n_philos == 1)
 			i = 0;
 	}
-	ft_print(info, i + 1, DIED);
+	if (check == 0)
+		ft_print(info, i + 1, DIED);
+	else
+		printf(DONE, info->repeat);
 	pthread_mutex_lock(&info->check);
 	info->dead = DEAD;
 	pthread_mutex_unlock(&info->check);
@@ -95,7 +107,6 @@ void	ft_launch_philos(t_info *info)
 		pthread_mutex_unlock(&info->check);
 		ft_check_pulse(info, info->philos);
 	}
-	
 }
 
 void	ft_end_philos(t_info *info)
@@ -114,4 +125,5 @@ void	ft_end_philos(t_info *info)
 		if (pthread_mutex_destroy(&info->forks[i]) != 0)
 			ft_pthread_err(info, DESMTX);
 	pthread_mutex_destroy(&info->check);
+	pthread_mutex_destroy(&info->milkshake);
 }
