@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 09:29:01 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/07 16:55:26 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/11 13:19:22 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_end_philos(t_info *info)
 		if (pthread_mutex_destroy(&info->forks[i]) != 0)
 			ft_pthread_err(info, DESMTX);
 	pthread_mutex_destroy(&info->check);
+	pthread_mutex_destroy(&info->time);
 	pthread_mutex_destroy(&info->milkshake);
 }
 

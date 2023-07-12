@@ -17,7 +17,7 @@ DEP			= $(SRC:.c=.d)
 
 cc			= gcc
 
-CFLAGS		= -Wall -Werror -Wextra -g -g3 -pthread 
+CFLAGS		= -Wall -Werror -Wextra -g -g3 -pthread
 
 #-fsanitize=thread
 
@@ -59,8 +59,8 @@ $(OBJPATH)%.o:%.c
 $(OBJPATH):
 	@mkdir -p $(OBJPATH)
 	@echo "$(C_BLUE).obj/ folder created$(C_END)"
-	
-clean: 
+
+clean:
 	@rm $(NAME)
 	@echo "$(C_YELLOW)Exec file deleted$(END)"
 

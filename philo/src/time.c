@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:13:06 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/07 16:45:58 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/11 16:25:36 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,6 @@ void	ft_sleep(t_info *info, long long sleep)
 	start = ft_timestamp(info);
 	while (1)
 	{
-		pthread_mutex_lock(&info->check);
-		if (info->dead == DEAD)
-		{
-			pthread_mutex_unlock(&info->check);
-			break ;
-		}
-		pthread_mutex_unlock(&info->check);
 		if (ft_timestamp(info) - start >= sleep)
 			break ;
 		usleep(10);

@@ -86,12 +86,13 @@ waitpid(-1, status, 0) = wait(status)
 valgrind : --child-silent-ater-fork=yes
 
 Useful test
-5 800 200 200
+5 800 200 200			ok
 no one should die
-5 600 150 150
+5 600 150 150			ok
 no one should die
-4 410 200 200
+4 410 200 200			ok
 no one should die
+
 100 800 200 200
 no one should die
 105 800 200 200
@@ -123,13 +124,13 @@ should error and not run (no crashing)
 should error and not run (no crashing)
 
 
-04/07/2023 
+04/07/2023
 TO DO
 //	-> 1 Philo scenario
 //	-> End program when number of meals reached
 //	-> Unlock all Mutex when one philo dies
 //	-> Clear all Datarace
-//	-> Implement 1 variable status in each philo and main thread will check for status of each 
+//	-> Implement 1 variable status in each philo and main thread will check for status of each
 
 
 MAKEFILE

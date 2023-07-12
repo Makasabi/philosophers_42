@@ -1,11 +1,202 @@
-==260507== Helgrind, a thread error detector
-==260507== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
-==260507== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==260507== Command: ./philo 5 800 200 200 2
-==260507== Parent PID: 254080
-==260507== 
-==260507== 
-==260507== Use --history-level=approx or =none to gain increased speed, at
-==260507== the cost of reduced accuracy of conflicting-access information
-==260507== For lists of detected and suppressed errors, rerun with: -s
-==260507== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 125657 from 113)
+2 1 has taken a fork
+2 1 has taken a fork
+2 1 is eating
+2 3 has taken a fork
+2 3 has taken a fork
+2 3 is eating
+202 1 is sleeping
+202 4 has taken a fork
+202 2 has taken a fork
+202 3 is sleeping
+202 4 has taken a fork
+202 2 has taken a fork
+202 2 is eating
+202 4 is eating
+402 1 is thinking
+402 3 is thinking
+402 3 has taken a fork
+402 2 is sleeping
+402 4 is sleeping
+402 1 has taken a fork
+402 1 has taken a fork
+402 1 is eating
+402 3 has taken a fork
+402 3 is eating
+602 1 is sleeping
+602 2 is thinking
+602 2 has taken a fork
+602 4 is thinking
+602 4 has taken a fork
+602 3 is sleeping
+602 4 has taken a fork
+602 4 is eating
+602 2 has taken a fork
+602 2 is eating
+802 1 is thinking
+802 1 has taken a fork
+802 4 is sleeping
+802 3 is thinking
+802 2 is sleeping
+802 1 has taken a fork
+802 1 is eating
+802 3 has taken a fork
+802 3 has taken a fork
+802 3 is eating
+1002 1 is sleeping
+1002 3 is sleeping
+1002 2 is thinking
+1002 2 has taken a fork
+1002 2 has taken a fork
+1002 2 is eating
+1002 4 is thinking
+1002 4 has taken a fork
+1002 4 has taken a fork
+1002 4 is eating
+1202 2 is sleeping
+1202 4 is sleeping
+1202 1 is thinking
+1202 1 has taken a fork
+1202 1 has taken a fork
+1202 1 is eating
+1202 3 is thinking
+1202 3 has taken a fork
+1202 3 has taken a fork
+1202 3 is eating
+1402 3 is sleeping
+1402 1 is sleeping
+1402 4 is thinking
+1402 4 has taken a fork
+1402 4 has taken a fork
+1402 4 is eating
+1402 2 is thinking
+1402 2 has taken a fork
+1402 2 has taken a fork
+1402 2 is eating
+1602 2 is sleeping
+1602 1 is thinking
+1602 1 has taken a fork
+1602 4 is sleeping
+1602 3 is thinking
+1602 3 has taken a fork
+1602 3 has taken a fork
+1602 3 is eating
+1602 1 has taken a fork
+1602 1 is eating
+1802 1 is sleeping
+1802 4 is thinking
+1802 3 is sleeping
+1802 2 is thinking
+1802 2 has taken a fork
+1802 2 has taken a fork
+1802 2 is eating
+1802 4 has taken a fork
+1802 4 has taken a fork
+1802 4 is eating
+2002 4 is sleeping
+2002 3 is thinking
+2002 3 has taken a fork
+2002 3 has taken a fork
+2002 1 is thinking
+2002 1 has taken a fork
+2002 1 has taken a fork
+2002 1 is eating
+2002 3 is eating
+2002 2 is sleeping
+2202 3 is sleeping
+2202 1 is sleeping
+2202 2 is thinking
+2202 2 has taken a fork
+2202 2 has taken a fork
+2202 2 is eating
+2202 4 is thinking
+2202 4 has taken a fork
+2202 4 has taken a fork
+2202 4 is eating
+2402 3 is thinking
+2402 3 has taken a fork
+2402 2 is sleeping
+2402 4 is sleeping
+2402 1 is thinking
+2402 1 has taken a fork
+2402 1 has taken a fork
+2402 1 is eating
+2402 3 has taken a fork
+2402 3 is eating
+2602 4 is thinking
+2602 2 is thinking
+2602 1 is sleeping
+2602 2 has taken a fork
+2602 4 has taken a fork
+2602 3 is sleeping
+2602 4 has taken a fork
+2602 4 is eating
+2602 2 has taken a fork
+2602 2 is eating
+2802 4 is sleeping
+2802 3 is thinking
+2802 1 is thinking
+2802 1 has taken a fork
+2802 2 is sleeping
+2802 3 has taken a fork
+2802 3 has taken a fork
+2802 3 is eating
+2802 1 has taken a fork
+2802 1 is eating
+3002 2 is thinking
+3002 2 has taken a fork
+3002 4 is thinking
+3002 4 has taken a fork
+3002 4 has taken a fork
+3002 3 is sleeping
+3002 4 is eating
+3002 2 has taken a fork
+3002 2 is eating
+3002 1 is sleeping
+3202 2 is sleeping
+3202 3 is thinking
+3202 3 has taken a fork
+3202 3 has taken a fork
+3202 3 is eating
+3202 4 is sleeping
+3202 1 is thinking
+3202 1 has taken a fork
+3202 1 has taken a fork
+3202 1 is eating
+3402 2 is thinking
+3402 3 is sleeping
+3402 1 is sleeping
+3402 2 has taken a fork
+3402 2 has taken a fork
+3402 2 is eating
+3402 4 is thinking
+3402 4 has taken a fork
+3402 4 has taken a fork
+3402 4 is eating
+3602 1 is thinking
+3602 2 is sleeping
+3602 4 is sleeping
+3602 1 has taken a fork
+3602 1 has taken a fork
+3602 3 is thinking
+3602 1 is eating
+3602 3 has taken a fork
+3602 3 has taken a fork
+3602 3 is eating
+3802 4 is thinking
+3802 2 is thinking
+3802 4 has taken a fork
+3802 2 has taken a fork
+3802 2 has taken a fork
+3802 2 is eating
+3802 3 is sleeping
+3802 4 has taken a fork
+3802 4 is eating
+3802 1 is sleeping
+4002 1 is thinking
+4002 1 has taken a fork
+4002 3 is thinking
+4002 4 is sleeping
+4002 2 is sleeping
+4002 1 has taken a fork
+4002 1 is eating
+4002 

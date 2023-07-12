@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:14:08 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/07 18:29:54 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/11 16:49:38 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	*ft_exec(void *data)
 {
 	t_info	*info;
 	t_philo	*philo;
+	int		i;
 
 	philo = (t_philo *)data;
 	info = philo->info;
-	if (!(philo->id % 2))
-		ft_sleep(info, 200);
+	i = 0;
 	while (1)
 	{
 		pthread_mutex_lock(&info->check);
@@ -39,9 +39,10 @@ void	*ft_exec(void *data)
 			break ;
 		}
 		pthread_mutex_unlock(&info->check);
-		ft_philo_eats(info, philo);
+		ft_philo_eats(info, philo, &i);
 		ft_philo_sleeps(info, philo);
 		ft_philo_thinks(info, philo);
+		i++;
 	}
 	return (NULL);
 }
@@ -50,13 +51,13 @@ void	ft_check_pulse_2(t_info *info, t_philo *philos, int *i, bool *check)
 {
 	while (info->dead == ALIVE)
 	{
-		pthread_mutex_lock(&info->check);
+		pthread_mutex_lock(&info->time);
 		if ((ft_timestamp(info) - philos[*i].last_meal) >= info->die)
 		{
-			pthread_mutex_unlock(&info->check);
+			pthread_mutex_unlock(&info->time);
 			break ;
 		}
-		pthread_mutex_unlock(&info->check);
+		pthread_mutex_unlock(&info->time);
 		pthread_mutex_lock(&info->milkshake);
 		if (info->dessert == info->n_philos)
 		{

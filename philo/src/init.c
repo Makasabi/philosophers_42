@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:01:29 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/07 16:42:07 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/11 16:29:35 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_info	*ft_parsing(int argc, char **args)
 	info->die = ft_checks(args[2]);
 	info->eat = ft_checks(args[3]);
 	info->sleep = ft_checks(args[4]);
+	info->think = info->die - info->eat - info->sleep;
 	if (argc == 6)
 		info->repeat = ft_checks(args[5]);
 	return (info);
@@ -93,6 +94,11 @@ void	ft_init(t_info *info)
 		philos[i].info = info;
 		philos[i].l_fork = i;
 		philos[i].r_fork = (i + 1) % info->n_philos;
+		if (i == info->n_philos - 1)
+		{
+			philos[i].r_fork = i;
+			philos[i].l_fork = (i + 1) % info->n_philos;
+		}
 		i++;
 	}
 	info->philos = philos;
@@ -101,5 +107,6 @@ void	ft_init(t_info *info)
 		ft_malloc_err(info, 2);
 	info->forks = forks;
 	pthread_mutex_init(&info->check, NULL);
+	pthread_mutex_init(&info->time, NULL);
 	pthread_mutex_init(&info->milkshake, NULL);
 }

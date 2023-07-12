@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 09:24:12 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/07 16:50:07 by mrony            ###   ########.fr       */
+/*   Updated: 2023/07/11 16:29:22 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,14 @@ typedef struct s_info
 	int				die;
 	int				eat;
 	int				sleep;
+	int				think;
 	int				repeat;
 	long long		start;
 	int				dessert;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	check;
+	pthread_mutex_t	time;
 	pthread_mutex_t	milkshake;
 	bool			dead;
 }	t_info;
@@ -119,7 +121,7 @@ void		ft_end_philos(t_info *info);
 void		ft_check_pulse(t_info *info, t_philo *philos);
 
 /* philo_does.c */
-void		ft_philo_eats(t_info *info, t_philo *philo);
+void		ft_philo_eats(t_info *info, t_philo *philo, int *i);
 void		ft_philo_sleeps(t_info *info, t_philo *philo);
 void		ft_philo_thinks(t_info *info, t_philo *philo);
 void		ft_print(t_info *info, int p_id, char *str);
