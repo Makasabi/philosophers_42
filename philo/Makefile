@@ -17,8 +17,7 @@ DEP			= $(SRC:.c=.d)
 
 cc			= gcc
 
-CFLAGS		= -Wall -Werror -Wextra -g -g3 -pthread
-
+CFLAGS		= -Wall -Werror -Wextra -g -g3 -pthread 
 #-fsanitize=thread
 
 NAME		= philo
@@ -74,4 +73,3 @@ re: fclean all
 
 checks: $(OBJPATH) $(OBJ) $(INCLUDES)
 	$(CC) $(CFLAGS) -fsanitize=thread $(OBJ) -o $(NAME)
-
