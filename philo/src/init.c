@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:01:29 by mrony             #+#    #+#             */
-/*   Updated: 2023/08/31 15:24:43 by mrony            ###   ########.fr       */
+/*   Updated: 2023/08/31 15:29:47 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_info	*ft_parsing(int argc, char **args)
 	info->sleep = ft_checks(args[4], info);
 	if (info->sleep < 60)
 		ft_parsing_error(INVARG, SLPVAL, info);
-	info->think = (info->die - info->eat - info->sleep)*2/3;
+	info->think = (info->die - info->eat - info->sleep) * 2 / 3;
 	if (argc == 6)
 		info->repeat = ft_checks(args[5], info);
 	return (info);
