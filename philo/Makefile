@@ -17,7 +17,7 @@ DEP			= $(SRC:.c=.d)
 
 cc			= gcc
 
-CFLAGS		= -Wall -Werror -Wextra -g -g3 -pthread 
+CFLAGS		= -Wall -Werror -Wextra -g -g3 -pthread
 #-fsanitize=thread
 
 NAME		= philo
@@ -52,8 +52,8 @@ $(NAME): $(OBJPATH) $(OBJ) $(INCLUDES)
 
 $(OBJPATH)%.o:%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
-	@echo "$(C_PINK).o file generated$(C_END)"
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "$(C_PINK) $@ file generated$(C_END)"
 
 $(OBJPATH):
 	@mkdir -p $(OBJPATH)

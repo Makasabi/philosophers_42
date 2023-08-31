@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
+/*   By: makasabi <makasabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:01:29 by mrony             #+#    #+#             */
-/*   Updated: 2023/08/29 12:17:48 by mrony            ###   ########.fr       */
+/*   Updated: 2023/08/31 09:30:07 by makasabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_info	*ft_parsing(int argc, char **args)
 }
 
 void	ft_init_each_philo(t_info *info, t_philo *philos)
-{	
+{
 	int	i;
 
 	i = 0;

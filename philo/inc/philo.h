@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
+/*   By: makasabi <makasabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 09:24:12 by mrony             #+#    #+#             */
-/*   Updated: 2023/08/29 12:08:45 by mrony            ###   ########.fr       */
+/*   Updated: 2023/08/31 09:30:53 by makasabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ t_info		*ft_parsing(int argc, char **args);
 void		ft_init(t_info *info);
 
 /* errors.c */
+
+/* errors.c */
 void		ft_malloc_err(t_info *info, int stage);
+void		ft_parsing_error(char *str);
 void		ft_parsing_error(char *str);
 
 /* time.c */

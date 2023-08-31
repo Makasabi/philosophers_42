@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   philo_does.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
+/*   By: makasabi <makasabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:38:10 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/11 16:49:17 by mrony            ###   ########.fr       */
+/*   Updated: 2023/08/30 16:31:57 by makasabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+void	ft_pick_up_forks(t_info *info, t_philo *philo)
+{
+	if (philo->id % 2)
+	{
+		pthread_mutex_lock(&info->forks[philo->l_fork]);
+		ft_print(info, philo->id, FORK);
+		pthread_mutex_lock(&info->forks[philo->r_fork]);
+		ft_print(info, philo->id, FORK);
+	}
+	else
+	{
+		pthread_mutex_lock(&info->forks[philo->r_fork]);
+		ft_print(info, philo->id, FORK);
+		pthread_mutex_lock(&info->forks[philo->l_fork]);
+		ft_print(info, philo->id, FORK);
+	}
+}
 
 void	ft_philo_eats(t_info *info, t_philo *philo, int *i)
 {
@@ -20,10 +38,7 @@ void	ft_philo_eats(t_info *info, t_philo *philo, int *i)
 		pthread_mutex_unlock(&info->check);
 		if (!(philo->id % 2) && i == 0)
 			usleep(100);
-		pthread_mutex_lock(&info->forks[philo->l_fork]);
-		ft_print(info, philo->id, FORK);
-		pthread_mutex_lock(&info->forks[philo->r_fork]);
-		ft_print(info, philo->id, FORK);
+		ft_pick_up_forks(info, philo);
 		pthread_mutex_lock(&info->time);
 		philo->last_meal = ft_timestamp(info);
 		pthread_mutex_unlock(&info->time);
