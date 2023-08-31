@@ -6,7 +6,7 @@
 /*   By: makasabi <makasabi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:01:29 by mrony             #+#    #+#             */
-/*   Updated: 2023/08/31 09:30:07 by makasabi         ###   ########.fr       */
+/*   Updated: 2023/08/30 16:32:17 by makasabi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,7 @@ void	ft_init(t_info *info)
 {
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
-	int				i;
 
-	i = 0;
 	info->start = ft_timestamp(info);
 	philos = ft_calloc(info->n_philos, sizeof(t_philo));
 	if (!philos)

@@ -18,6 +18,7 @@ DEP			= $(SRC:.c=.d)
 cc			= gcc
 
 CFLAGS		= -Wall -Werror -Wextra -g -g3 -pthread
+
 #-fsanitize=thread
 
 NAME		= philo
@@ -73,3 +74,8 @@ re: fclean all
 
 checks: $(OBJPATH) $(OBJ) $(INCLUDES)
 	$(CC) $(CFLAGS) -fsanitize=thread $(OBJ) -o $(NAME)
+
+gmk:
+		@if [ -d make ];then echo "$(C_GREEN)Source file list updated$(C_END)" ;else mkdir make;fi
+		@find -name '*.c' | sed 's/^/SRC += /' > make/src.mk
+		@find -name '*.h' | sed 's/^/INC += /' > make/inc.mk
