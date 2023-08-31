@@ -6,7 +6,7 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:38:10 by mrony             #+#    #+#             */
-/*   Updated: 2023/08/31 15:08:23 by mrony            ###   ########.fr       */
+/*   Updated: 2023/08/31 15:25:13 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_philo_thinks(t_info *info, t_philo *philo)
 {
 	ft_print(info, philo->id, THKS);
 	if (info->think > 15)
-		ft_sleep(info, 10);
+		ft_sleep(info, info->think);
 }
 
 void	ft_print(t_info *info, int p_id, char *str)
