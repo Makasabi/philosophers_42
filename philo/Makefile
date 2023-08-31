@@ -17,7 +17,7 @@ DEP			= $(SRC:.c=.d)
 
 cc			= gcc
 
-CFLAGS		= -Wall -Werror -Wextra -g -g3 -pthread
+CFLAGS		= -Wall -Werror -Wextra -pthread
 
 #-fsanitize=thread
 

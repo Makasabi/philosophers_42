@@ -6,20 +6,11 @@
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:14:08 by mrony             #+#    #+#             */
-/*   Updated: 2023/07/11 16:49:38 by mrony            ###   ########.fr       */
+/*   Updated: 2023/08/31 15:10:20 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
-
-void	ft_pthread_err(t_info *info, char *err)
-{
-	free(info->philos);
-	free(info->forks);
-	free(info);
-	ft_putstr_fd(err, 2);
-	exit(EXIT_FAILURE);
-}
 
 void	*ft_exec(void *data)
 {
@@ -30,6 +21,8 @@ void	*ft_exec(void *data)
 	philo = (t_philo *)data;
 	info = philo->info;
 	i = 0;
+	if (!(philo->id % 2))
+		usleep(5000);
 	while (1)
 	{
 		pthread_mutex_lock(&info->check);
@@ -39,8 +32,9 @@ void	*ft_exec(void *data)
 			break ;
 		}
 		pthread_mutex_unlock(&info->check);
-		ft_philo_eats(info, philo, &i);
+		ft_philo_eats(info, philo);
 		ft_philo_sleeps(info, philo);
+		usleep(200);
 		ft_philo_thinks(info, philo);
 		i++;
 	}
@@ -112,5 +106,6 @@ void	ft_launch_philos(t_info *info)
 		}
 		pthread_mutex_unlock(&info->check);
 		ft_check_pulse(info, info->philos);
+		usleep(500);
 	}
 }

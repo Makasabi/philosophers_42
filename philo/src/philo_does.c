@@ -3,84 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   philo_does.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: makasabi <makasabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:38:10 by mrony             #+#    #+#             */
-/*   Updated: 2023/08/30 16:31:57 by makasabi         ###   ########.fr       */
+/*   Updated: 2023/08/31 15:08:23 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	ft_pick_up_forks(t_info *info, t_philo *philo)
+void	ft_philo_eats(t_info *info, t_philo *philo)
 {
-	if (philo->id % 2)
-	{
-		pthread_mutex_lock(&info->forks[philo->l_fork]);
-		ft_print(info, philo->id, FORK);
-		pthread_mutex_lock(&info->forks[philo->r_fork]);
-		ft_print(info, philo->id, FORK);
-	}
-	else
-	{
-		pthread_mutex_lock(&info->forks[philo->r_fork]);
-		ft_print(info, philo->id, FORK);
-		pthread_mutex_lock(&info->forks[philo->l_fork]);
-		ft_print(info, philo->id, FORK);
-	}
-}
-
-void	ft_philo_eats(t_info *info, t_philo *philo, int *i)
-{
-	pthread_mutex_lock(&info->check);
-	if (info->dead == ALIVE)
-	{
-		pthread_mutex_unlock(&info->check);
-		if (!(philo->id % 2) && i == 0)
-			usleep(100);
-		ft_pick_up_forks(info, philo);
-		pthread_mutex_lock(&info->time);
-		philo->last_meal = ft_timestamp(info);
-		pthread_mutex_unlock(&info->time);
-		philo->meals++;
-		pthread_mutex_lock(&info->milkshake);
-		if (philo->meals == info->repeat)
-			info->dessert++;
-		pthread_mutex_unlock(&info->milkshake);
-		ft_print(info, philo->id, EATS);
-		ft_sleep(info, info->eat);
-		pthread_mutex_unlock(&info->forks[philo->r_fork]);
-		pthread_mutex_unlock(&info->forks[philo->l_fork]);
-	}
-	else
-		pthread_mutex_unlock(&info->check);
+	pthread_mutex_lock(&info->forks[philo->l_fork]);
+	ft_print(info, philo->id, FORK);
+	pthread_mutex_lock(&info->forks[philo->r_fork]);
+	ft_print(info, philo->id, FORK);
+	pthread_mutex_lock(&info->time);
+	philo->last_meal = ft_timestamp(info);
+	pthread_mutex_unlock(&info->time);
+	philo->meals++;
+	pthread_mutex_lock(&info->milkshake);
+	if (philo->meals == info->repeat)
+		info->dessert++;
+	pthread_mutex_unlock(&info->milkshake);
+	ft_print(info, philo->id, EATS);
+	ft_sleep(info, info->eat);
+	pthread_mutex_unlock(&info->forks[philo->r_fork]);
+	pthread_mutex_unlock(&info->forks[philo->l_fork]);
 }
 
 void	ft_philo_sleeps(t_info *info, t_philo *philo)
 {
-	pthread_mutex_lock(&info->check);
-	if (info->dead == ALIVE)
-	{
-		pthread_mutex_unlock(&info->check);
-		ft_print(info, philo->id, SLPS);
-		ft_sleep(info, info->sleep);
-	}
-	else
-		pthread_mutex_unlock(&info->check);
+	ft_print(info, philo->id, SLPS);
+	ft_sleep(info, info->sleep);
 }
 
 void	ft_philo_thinks(t_info *info, t_philo *philo)
 {
-	pthread_mutex_lock(&info->check);
-	if (info->dead == ALIVE)
-	{
-		pthread_mutex_unlock(&info->check);
-		ft_print(info, philo->id, THKS);
-		if (info->think > 15)
-			ft_sleep(info, 10);
-	}
-	else
-		pthread_mutex_unlock(&info->check);
+	ft_print(info, philo->id, THKS);
+	if (info->think > 15)
+		ft_sleep(info, 10);
 }
 
 void	ft_print(t_info *info, int p_id, char *str)

@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: makasabi <makasabi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:01:29 by mrony             #+#    #+#             */
-/*   Updated: 2023/08/30 16:32:17 by makasabi         ###   ########.fr       */
+/*   Updated: 2023/08/31 11:47:31 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int	ft_checks(char *arg)
+int	ft_checks(char *arg, t_info *info)
 {
 	long	tmp;
 
 	tmp = 0;
 	if (arg[0] == '\0')
-		ft_parsing_error(EMPTY);
+		ft_parsing_error(INVARG, EMPTY, info);
 	if (ft_is_digit(arg) == 1)
-		ft_parsing_error(DIGIT);
+		ft_parsing_error(INVARG, DIGIT, info);
 	if (ft_strlen(arg) > 11)
-		ft_parsing_error(INTERR);
+		ft_parsing_error(INVARG, INTERR, info);
 	tmp = ft_atol(arg);
 	if (tmp < 0 || tmp > 2147483647)
-		ft_parsing_error(INTERR);
+		ft_parsing_error(INVARG, INTERR, info);
 	return ((int)tmp);
 }
 
@@ -36,13 +36,21 @@ t_info	*ft_parsing(int argc, char **args)
 	info = ft_calloc(1, sizeof(t_info));
 	if (!info)
 		ft_malloc_err(info, 0);
-	info->n_philos = ft_checks(args[1]);
-	info->die = ft_checks(args[2]);
-	info->eat = ft_checks(args[3]);
-	info->sleep = ft_checks(args[4]);
+	info->n_philos = ft_checks(args[1], info);
+	if (info->n_philos > 200)
+		ft_parsing_error(INVARG, PHILIM, info);
+	info->die = ft_checks(args[2], info);
+	if (info->die < 60)
+		ft_parsing_error(INVARG, DIEVAL, info);
+	info->eat = ft_checks(args[3], info);
+	if (info->eat < 60)
+		ft_parsing_error(INVARG, EATVAL, info);
+	info->sleep = ft_checks(args[4], info);
+	if (info->sleep < 60)
+		ft_parsing_error(INVARG, SLPVAL, info);
 	info->think = info->die - info->eat - info->sleep;
 	if (argc == 6)
-		info->repeat = ft_checks(args[5]);
+		info->repeat = ft_checks(args[5], info);
 	return (info);
 }
 
