@@ -54,7 +54,7 @@ $(NAME): $(OBJPATH) $(OBJ) $(INCLUDES)
 $(OBJPATH)%.o:%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "$(C_PINK) $@ file generated$(C_END)"
+	@printf "$(C_PINK)Generating obj file: %-20s\n$(C_END)" $@
 
 $(OBJPATH):
 	@mkdir -p $(OBJPATH)
@@ -72,10 +72,5 @@ re: fclean all
 
 .PHONY: all clean fclean re
 
-checks: $(OBJPATH) $(OBJ) $(INCLUDES)
-	$(CC) $(CFLAGS) -fsanitize=thread $(OBJ) -o $(NAME)
-
-gmk:
-		@if [ -d make ];then echo "$(C_GREEN)Source file list updated$(C_END)" ;else mkdir make;fi
-		@find -name '*.c' | sed 's/^/SRC += /' > make/src.mk
-		@find -name '*.h' | sed 's/^/INC += /' > make/inc.mk
+# checks: $(OBJPATH) $(OBJ) $(INCLUDES)
+# 	$(CC) $(CFLAGS) -fsanitize=thread $(OBJ) -o $(NAME)

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads.c                                          :+:      :+:    :+:   */
+/*   forks_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:14:08 by mrony             #+#    #+#             */
-/*   Updated: 2023/09/04 11:45:37 by mrony            ###   ########.fr       */
+/*   Updated: 2023/09/01 16:17:20 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/philo.h"
+#include "../inc/philo_bonus.h"
 
 void	*ft_exec(void *data)
 {
@@ -21,17 +21,15 @@ void	*ft_exec(void *data)
 	philo = (t_philo *)data;
 	info = philo->info;
 	i = 0;
-	if (!(philo->id % 2))
-		usleep(500);
 	while (1)
 	{
-		pthread_mutex_lock(&info->check);
+		sem_wait(info->check);
 		if (info->dead == DEAD)
 		{
-			pthread_mutex_unlock(&info->check);
+			sem_post(info->check);
 			break ;
 		}
-		pthread_mutex_unlock(&info->check);
+		sem_post(info->check);
 		ft_philo_eats(info, philo);
 		ft_philo_sleeps(info, philo);
 		usleep(200);
@@ -45,21 +43,21 @@ void	ft_check_pulse_2(t_info *info, t_philo *philos, int *i, bool *check)
 {
 	while (info->dead == ALIVE)
 	{
-		pthread_mutex_lock(&info->time);
+		sem_wait(info->time);
 		if ((ft_timestamp(info) - philos[*i].last_meal) >= info->die)
 		{
-			pthread_mutex_unlock(&info->time);
+			sem_post(info->time);
 			break ;
 		}
-		pthread_mutex_unlock(&info->time);
-		pthread_mutex_lock(&info->milkshake);
+		sem_post(info->time);
+		sem_wait(info->milkshake);
 		if (info->dessert == info->n_philos)
 		{
-			pthread_mutex_unlock(&info->milkshake);
+			sem_post(info->milkshake);
 			*check = 1;
 			break ;
 		}
-		pthread_mutex_unlock(&info->milkshake);
+		sem_post(info->milkshake);
 		*i += 1;
 		if (*i == info->n_philos - 1 || info->n_philos == 1)
 			*i = 0;
@@ -78,9 +76,9 @@ void	ft_check_pulse(t_info *info, t_philo *philos)
 		ft_print(info, i + 1, DIED);
 	else
 		printf(DONE, info->repeat);
-	pthread_mutex_lock(&info->check);
+	sem_wait(info->check);
 	info->dead = DEAD;
-	pthread_mutex_unlock(&info->check);
+	sem_post(info->check);
 }
 
 void	ft_launch_philos(t_info *info)
@@ -89,22 +87,24 @@ void	ft_launch_philos(t_info *info)
 
 	i = -1;
 	while (++i < info->n_philos)
-		if (pthread_mutex_init(&info->forks[i], NULL) != 0)
-			ft_pthread_err(info, INIMTX);
-	i = -1;
-	while (++i < info->n_philos)
-		if (pthread_create(&info->philos[i].t_id, \
-		NULL, ft_exec, &info->philos[i]) != 0)
-			ft_pthread_err(info, INITRD);
+	{
+		info->philos[i].pid = fork();
+		if (info->philos[i].pid == -1)
+			ft_fork_err(info, FRKERR);
+		else if (info->philos[i].pid == 0)
+			ft_exec(&info->philos[i]);
+		else if (info->philos[i].pid > 0)
+			i++;
+	}
 	while (1)
 	{
-		pthread_mutex_lock(&info->check);
+		sem_wait(info->check);
 		if (info->dead == DEAD)
 		{
-			pthread_mutex_unlock(&info->check);
+			sem_post(info->check);
 			break ;
 		}
-		pthread_mutex_unlock(&info->check);
+		sem_post(info->check);
 		ft_check_pulse(info, info->philos);
 		usleep(500);
 	}

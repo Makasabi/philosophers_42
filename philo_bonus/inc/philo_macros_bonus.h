@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_macros.h                                     :+:      :+:    :+:   */
+/*   philo_macros_bonus.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrony <mrony@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 11:50:20 by mrony             #+#    #+#             */
-/*   Updated: 2023/09/04 12:01:04 by mrony            ###   ########.fr       */
+/*   Updated: 2023/09/01 15:49:44 by mrony            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_MACROS_H
-# define PHILO_MACROS_H
+#ifndef PHILO_MACROS_BONUS_H
+# define PHILO_MACROS_BONUS_H
 
 ////////////////////// MACRO //////////////////////
 
@@ -20,7 +20,7 @@
 <time_to_die> <time_to_eat> <time_to_sleep> \
 [<number_of_time_each_philosopher_must_eat>]\n\033[1;0m"
 # define EMPTY "\033[0;33mAt least one argument is empty.\033[0m\n"
-# define DIGIT "\033[0;33mArgument is not an unsigned integer.\033[0m\n"
+# define DIGIT "\033[0;33mArgument is not a positive digit.\033[0m\n"
 # define INTERR "\033[0;33mArgument does't fit into an int.\033[0m\n"
 # define PHILIM "\033[0;33mNumber of philosophers exceeds limit.\033[0m\n"
 # define DIEVAL "\033[0;33mTime to die is below limit.\033[0m\n"
@@ -30,13 +30,13 @@
 # define MALERR "\033[1;35m🦖 Malloc failled 🦖\n\033[1;0m"
 # define INFERR "\033[0;33mInfo struct init failled.\033[0m\n"
 # define PTHERR "\033[0;33mPhilo struct table init failled.\033[0m\n"
-# define FRKERR "\033[0;33mFork mutex table init failled\033[0m\n"
+# define SEMERR "\033[0;33mSemaphore failed\033[0m\n"
 
-# define THRERR "\033[1;35m🦖 Thread failled 🦖\n\033[1;0m"
-# define INIMTX "\033[0;33mError initiating mutex\033[0m\n"
-# define INITRD "\033[0;33mError creating thread\033[0m\n"
-# define ERRJOI "\033[0;33mError joining thread\033[0m\n"
-# define DESMTX "\033[0;33mError destroying mutex\033[0m\n"
+# define THRERR "\033[1;35m🦖 Fork failled 🦖\n\033[1;0m"
+# define FRKERR "\033[0;33mError forking philosopher\033[0m\n"
+// # define INITRD "\033[0;33mError creating thread\033[0m\n"
+// # define ERRJOI "\033[0;33mError joining thread\033[0m\n"
+// # define DESMTX "\033[0;33mError destroying mutex\033[0m\n"
 
 # define FORK "has taken a fork"
 # define EATS "is eating"

@@ -93,34 +93,36 @@ no one should die
 4 410 200 200			ok
 no one should die
 
-100 800 200 200git push
+100 800 200 200			ok
 no one should die
-105 800 200 200
+105 800 200 200			ok
 no one should die
-200 800 200 200
+200 800 200 200			ok
+no one should die
+200 130 60 60			ok
 no one should die
 
 
-1 800 200 200
+1 800 200 200			ok
 a philo should die
-4 310 200 100
+4 310 200 100			ok
 a philo should die
-4 200 205 200
+4 200 205 200			ok
 a philo should die
 
-5 800 200 200 7
+5 800 200 200 7			ok
 no one should die, simulation should stop after 7 eats
-4 410 200 200 10
+4 410 200 200 10		ok
 no one should die, simulation should stop after 10 eats
--5 600 200 20
+-5 600 200 20			ok
 should error and not run (no crashing)
-4 -5 200 200
+4 -5 200 200			ok
 should error and not run (no crashing)
-4 600 -5 200
+4 600 -5 200			ok
 should error and not run (no crashing)
-4 600 200 -5
+4 600 200 -5			ok
 should error and not run (no crashing)
-4 600 200 200 -5
+4 600 200 200 -5		ok
 should error and not run (no crashing)
 
 
